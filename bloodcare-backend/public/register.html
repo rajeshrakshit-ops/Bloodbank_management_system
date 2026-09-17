@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - BloodCare</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">🩸 BloodCare</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="login.html" class="login-btn">Login</a>
+        </div>
+    </nav>
+
+    <section class="login-section">
+        <div class="login-container">
+            <h1>Create Account</h1>
+            <p>Register as a donor or requester.</p>
+            <form id="registerForm">
+                <label for="registerName">Full Name</label>
+                <input id="registerName" type="text" required placeholder="Enter your full name">
+
+                <label for="registerEmail">Email</label>
+                <input id="registerEmail" type="email" required placeholder="Enter your email">
+
+                <label for="registerPassword">Password</label>
+                <input id="registerPassword" type="password" minlength="6" required placeholder="At least 6 characters">
+
+                <label for="registerRole">Register As</label>
+                <select id="registerRole" required>
+                    <option value="">Select Role</option>
+                    <option value="donor">Donor</option>
+                    <option value="requester">Requester</option>
+                </select>
+
+                <button type="submit">Create Account</button>
+            </form>
+            <p class="register-text">Already have an account? <a href="login.html">Login here</a></p>
+        </div>
+    </section>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

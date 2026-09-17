@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Request Blood - BloodCare</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+
+        <div class="logo">
+            🩸 BloodCare
+        </div>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="#">About</a>
+            <a href="#">Blood Stock</a>
+            <a href="#">Contact</a>
+            <a href="login.html" class="login-btn" id="navAuthBtn">Login</a>
+        </div>
+
+    </nav>
+
+    <!-- Blood Request Section -->
+    <section class="request-section">
+
+        <div class="request-container">
+
+            <h1>Request Blood</h1>
+
+            <p>
+                Submit your blood requirement and let us help you find the required blood group.
+            </p>
+
+            <form id="bloodRequestForm">
+
+                <label>Patient / Requester Name</label>
+                <input type="text" placeholder="Enter full name">
+
+                <label>Age</label>
+                <input type="number" placeholder="Enter age">
+
+                <label>Blood Group Required</label>
+                <select>
+                    <option>Select Blood Group</option>
+                    <option>A+</option>
+                    <option>A-</option>
+                    <option>B+</option>
+                    <option>B-</option>
+                    <option>O+</option>
+                    <option>O-</option>
+                    <option>AB+</option>
+                    <option>AB-</option>
+                </select>
+
+                <label>Units Required</label>
+                <input type="number" placeholder="Enter number of units">
+
+                <label>Hospital / Location</label>
+                <input type="text" placeholder="Enter hospital or location">
+
+                <label>Contact Number</label>
+                <input type="tel" placeholder="Enter contact number">
+
+                <label>Email</label>
+                <input type="email" placeholder="Enter email">
+
+                <label>Reason for Request</label>
+                <textarea placeholder="Enter reason for requesting blood"></textarea>
+
+                <button type="submit">
+                    Submit Blood Request
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>

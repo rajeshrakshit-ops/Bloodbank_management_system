@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Donate Blood - BloodCare</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+
+        <div class="logo">
+            🩸 BloodCare
+        </div>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="#">About</a>
+            <a href="#">Blood Stock</a>
+            <a href="#">Contact</a>
+            <a href="login.html" class="login-btn" id="navAuthBtn">Login</a>
+        </div>
+
+    </nav>
+
+    <!-- Donor Registration -->
+    <section class="donate-section">
+
+        <div class="donate-container">
+
+            <h1>Become a Blood Donor</h1>
+
+            <p>
+                Register yourself as a blood donor and help save lives.
+            </p>
+
+            <form id="donorRegisterForm">
+
+                <label for="donorName">Full Name</label>
+                <input id="donorName" type="text" placeholder="Enter your full name" required>
+
+                <label for="donorAge">Age</label>
+                <input id="donorAge" type="number" placeholder="Enter your age" min="18" max="65" required>
+
+                <label for="donorGender">Gender</label>
+                <select id="donorGender" required>
+                    <option value="">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+
+                <label for="donorBloodGroup">Blood Group</label>
+                <select id="donorBloodGroup" required>
+                    <option value="">Select Blood Group</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                </select>
+
+                <label for="donorPhone">Phone Number</label>
+                <input id="donorPhone" type="tel" placeholder="Enter your phone number" required>
+
+                <label for="donorEmail">Email</label>
+                <input id="donorEmail" type="email" placeholder="Enter your email" required>
+
+                <div id="donorPasswordFields">
+                    <label for="donorPassword">Create Password</label>
+                    <input id="donorPassword" type="password" placeholder="Create a password (min. 6 characters)" minlength="6" required>
+
+                    <label for="donorConfirmPassword">Confirm Password</label>
+                    <input id="donorConfirmPassword" type="password" placeholder="Confirm your password" minlength="6" required>
+                </div>
+
+                <label for="donorAddress">Address</label>
+                <textarea id="donorAddress" placeholder="Enter your address" required></textarea>
+
+                <button type="submit">
+                    Register as Donor
+                </button>
+
+                <p class="register-text" style="text-align: center; margin-top: 18px; color: #666; font-size: 15px;">
+                    Already have an account? <a href="login.html" style="color: #c62828; text-decoration: none; font-weight: bold;">Login here</a>
+                </p>
+
+            </form>
+
+        </div>
+
+    </section>
+
+<script src="js/script.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login - BloodCare</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+
+        <div class="logo">
+            🩸 BloodCare
+        </div>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="#">About</a>
+            <a href="#">Blood Stock</a>
+            <a href="#">Contact</a>
+        </div>
+
+    </nav>
+
+    <!-- Login Section -->
+    <section class="login-section">
+
+        <div class="login-container">
+
+            <h1>Welcome Back</h1>
+
+            <p>Login to your BloodCare account</p>
+
+            <form id="loginForm">
+
+                <label>Email</label>
+                <input type="email" id="loginEmail" placeholder="Enter your email">
+
+                <label>Password</label>
+                <input type="password" id="loginPassword" placeholder="Enter your password">
+
+                <label>Login As</label>
+
+                <select id="loginRole">
+                    <option>Select Role</option>
+                    <option>Donor</option>
+                    <option>Requester</option>
+                    <option>Admin</option>
+                </select>
+
+                <button type="submit">Login</button>
+
+            </form>
+
+            <p class="register-text">
+                Don't have an account?
+                <a href="donate.html">Register as Donor</a>
+            </p>
+
+        </div>
+
+    </section>
+
+    <script src="js/script.js"></script>
+    
+</body>
+
+</html>

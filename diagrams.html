@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BloodCare — ER & Use Case Diagrams</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        :root {
+            --primary: #e63946;
+            --primary-dark: #b81d24;
+            --primary-light: #fbebee;
+            --secondary: #1d3557;
+            --accent: #457b9d;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --border: #e2e8f0;
+            --text: #0f172a;
+            --text-muted: #64748b;
+            --code-bg: #1e293b;
+            --radius: 12px;
+            --shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.06), 0 2px 6px -1px rgba(0, 0, 0, 0.04);
+            --shadow-lg: 0 10px 30px -4px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        header {
+            background: linear-gradient(135deg, #b81d24 0%, #e63946 60%, #ff6b6b 100%);
+            color: #ffffff;
+            padding: 2.5rem 2rem 2rem;
+            box-shadow: 0 4px 15px rgba(230, 57, 70, 0.25);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            font-size: 2.2rem;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
+
+        .brand-text h1 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin: 0;
+        }
+
+        .brand-text p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-top: 2px;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(4px);
+        }
+
+        .action-btn:hover {
+            background: rgba(255, 255, 255, 0.35);
+            transform: translateY(-1px);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 1.5rem 4rem;
+        }
+
+        /* Tab Navigation */
+        .tabs {
+            display: flex;
+            gap: 8px;
+            background: #e2e8f0;
+            padding: 6px;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            max-width: fit-content;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.04);
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn.active {
+            background: #ffffff;
+            color: var(--primary);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Card Container */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .diagram-toolbar {
+            display: flex;
+            gap: 8px;
+        }
+
+        .tool-btn {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s ease;
+        }
+
+        .tool-btn:hover {
+            background: #e2e8f0;
+            color: var(--primary-dark);
+        }
+
+        .diagram-viewer {
+            overflow: auto;
+            background: #ffffff;
+            border: 1px solid #edf2f7;
+            border-radius: 8px;
+            padding: 2.5rem 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 450px;
+            position: relative;
+        }
+
+        .diagram-viewer svg {
+            max-width: 100%;
+            height: auto !important;
+            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.03));
+        }
+
+        /* Details Section */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .info-box {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.25rem;
+        }
+
+        .info-box h4 {
+            color: var(--secondary);
+            font-size: 1.05rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .info-box p, .info-box ul {
+            font-size: 0.9rem;
+            color: #334155;
+        }
+
+        .info-box ul {
+            padding-left: 1.25rem;
+            margin-top: 0.5rem;
+        }
+
+        .info-box li {
+            margin-bottom: 0.4rem;
+        }
+
+        /* Data Tables */
+        .table-responsive {
+            overflow-x: auto;
+            margin-top: 1rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            text-align: left;
+        }
+
+        th {
+            background: #f1f5f9;
+            color: var(--secondary);
+            font-weight: 600;
+            padding: 12px 16px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        tr:hover td {
+            background: #f8fafc;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .badge-pk { background: #fee2e2; color: #991b1b; }
+        .badge-fk { background: #dbeafe; color: #1e40af; }
+        .badge-uk { background: #fef3c7; color: #92400e; }
+        .badge-req { background: #f1f5f9; color: #475569; }
+
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            color: #b81d24;
+        }
+
+        /* Print formatting */
+        @media print {
+            header, .tabs, .diagram-toolbar, .action-btn {
+                display: none !important;
+            }
+            .container {
+                max-width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            .card {
+                box-shadow: none;
+                border: none;
+                padding: 0;
+                page-break-after: always;
+            }
+            .tab-content {
+                display: block !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <div class="brand">
+                <span class="brand-icon">🩸</span>
+                <div class="brand-text">
+                    <h1>BloodCare Architecture Diagrams</h1>
+                    <p>Relational Database Schema (ER) & UML Use Case Model</p>
+                </div>
+            </div>
+            <div class="nav-actions">
+                <a href="index.html" class="action-btn">🏠 Homepage</a>
+                <a href="admin.html" class="action-btn">🛡️ Admin Dashboard</a>
+                <button class="action-btn" onclick="window.print()">🖨️ Print / Save PDF</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- Tab Controls -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('er-diagram')">1. ER Diagram</button>
+            <button class="tab-btn" onclick="switchTab('usecase-diagram')">2. Use Case Diagram</button>
+            <button class="tab-btn" onclick="switchTab('dictionary')">3. Schema & Data Dictionary</button>
+        </div>
+
+        <!-- ================= TAB 1: ER DIAGRAM ================= -->
+        <section id="er-diagram" class="tab-content active">
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <h2 class="card-title">Entity-Relationship Diagram (Crow's Foot Notation)</h2>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 4px;">
+                            Represents the normalized MySQL relational schema (Engine: InnoDB, Foreign Keys & Cascades)
+                        </p>
+                    </div>
+                    <div class="diagram-toolbar">
+                        <button class="tool-btn" onclick="resetZoom('erViewer')">🔍 Reset Zoom</button>
+                        <button class="tool-btn" onclick="copyMermaid('erCode')">📋 Copy Mermaid</button>
+                    </div>
+                </div>
+
+                <div class="diagram-viewer" id="erViewer">
+                    <pre class="mermaid" id="erDiagramPre">
+erDiagram
+    USERS ||--o| DONORS : "has profile (user_id)"
+    USERS ||--o{ BLOOD_REQUESTS : "submits (requester_id)"
+    USERS ||--o{ DONATIONS : "records (recorded_by)"
+    DONORS ||--o{ DONATIONS : "makes (donor_id)"
+    BLOOD_STOCK ||--o{ DONATIONS : "stocked by (via blood_group)"
+    BLOOD_STOCK ||--o{ BLOOD_REQUESTS : "depleted by (on fulfill)"
+
+    USERS {
+        int id PK
+        string name
+        string email UK
+        string password_hash
+        string role "admin|employee|donor|requester"
+        boolean is_active
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    DONORS {
+        int id PK
+        int user_id FK "nullable, unique"
+        string name
+        int age
+        string gender "Male|Female|Other"
+        string blood_group "A+|A-|B+|B-|AB+|AB-|O+|O-"
+        string phone
+        string email
+        string address
+        boolean is_available
+        date last_donation_date
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    BLOOD_STOCK {
+        int id PK
+        string blood_group UK "8 standard groups"
+        int units "check >= 0"
+        timestamp updated_at
+    }
+
+    BLOOD_REQUESTS {
+        int id PK
+        int requester_id FK "nullable"
+        string requester_name
+        string blood_group
+        int units "check > 0"
+        string hospital
+        string phone
+        string email
+        string reason
+        string status "pending|approved|rejected|fulfilled"
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    DONATIONS {
+        int id PK
+        int donor_id FK "RESTRICT on delete"
+        int units "check > 0"
+        date donation_date
+        string status "recorded|cancelled"
+        int recorded_by FK "staff user_id"
+        timestamp created_at
+    }
+                    </pre>
+                </div>
+
+                <div class="info-grid">
+                    <div class="info-box">
+                        <h4>🔑 Integrity Constraints</h4>
+                        <ul>
+                            <li><strong>users $\rightarrow$ donors:</strong> <code>1 : 0..1</code> with <code>ON DELETE SET NULL</code>. Donor profiles persist if user login accounts are purged.</li>
+                            <li><strong>donors $\rightarrow$ donations:</strong> <code>1 : 0..*</code> with <code>ON DELETE RESTRICT</code>. Preserves clinical audit history; donors with recorded donations cannot be deleted.</li>
+                            <li><strong>blood_stock units:</strong> Guarded by <code>CHECK (units >= 0)</code> and application-level transactions.</li>
+                        </ul>
+                    </div>
+                    <div class="info-box">
+                        <h4>⚙️ Transactional Business Logic</h4>
+                        <ul>
+                            <li><strong>Donation Intake:</strong> When <code>POST /api/donations</code> is logged, it increases <code>blood_stock.units</code> and updates <code>donors.last_donation_date</code>.</li>
+                            <li><strong>Request Fulfillment:</strong> When <code>POST /api/requests/:id/fulfill</code> is approved, the system verifies sufficient stock and atomicity decrements inventory.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 2: USE CASE DIAGRAM ================= -->
+        <section id="usecase-diagram" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <h2 class="card-title">UML Use Case Diagram</h2>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 4px;">
+                            Maps actors to system capabilities across Public, Donor, Requester, Staff, and Administrator boundaries.
+                        </p>
+                    </div>
+                    <div class="diagram-toolbar">
+                        <button class="tool-btn" onclick="resetZoom('ucViewer')">🔍 Reset Zoom</button>
+                        <button class="tool-btn" onclick="copyMermaid('ucCode')">📋 Copy Mermaid</button>
+                    </div>
+                </div>
+
+                <div class="diagram-viewer" id="ucViewer">
+                    <pre class="mermaid" id="ucDiagramPre">
+flowchart LR
+    %% Actors
+    Guest["👤 Guest / Public User"]
+    Donor["🩸 Registered Donor"]
+    Requester["🏥 Registered Requester"]
+    Employee["🧑‍⚕️ Staff / Employee"]
+    Admin["🛡️ System Admin"]
+
+    %% Admin Generalization
+    Admin -.->|Generalizes / Inherits| Employee
+
+    %% System Boundary
+    subgraph BloodCareSystem ["BloodCare Management System"]
+
+        subgraph ModAuth ["Auth & Profiles"]
+            UC_Reg(["Register User Account"])
+            UC_Login(["Login (JWT Auth)"])
+            UC_ViewProfile(["Manage Profile"])
+        end
+
+        subgraph ModDonor ["Donor Operations"]
+            UC_PublicDonate(["Register as Donor"])
+            UC_ToggleAvail(["Toggle Availability"])
+            UC_RecordDonation(["Record Blood Donation"])
+            UC_ViewDonors(["View Donor Directory"])
+            UC_DeleteDonor(["Delete Donor Profile"])
+        end
+
+        subgraph ModReq ["Blood Requests"]
+            UC_SubmitReq(["Submit Blood Request"])
+            UC_TrackReq(["Track My Requests"])
+            UC_ViewAllReq(["Review All Requests"])
+            UC_UpdateStatus(["Approve / Reject Request"])
+            UC_FulfillReq(["Fulfill Blood Request"])
+            UC_DeleteReq(["Delete Blood Request"])
+        end
+
+        subgraph ModStock ["Inventory & Analytics"]
+            UC_ViewStock(["View Blood Stock"])
+            UC_AdjustStock(["Adjust Stock (Units)"])
+            UC_SetStock(["Direct Stock Override"])
+            UC_ViewStats(["View Dashboard Analytics"])
+        end
+
+    end
+
+    %% Guest
+    Guest --- UC_ViewStock
+    Guest --- UC_PublicDonate
+    Guest --- UC_SubmitReq
+    Guest --- UC_Reg
+    Guest --- UC_Login
+
+    %% Donor
+    Donor --- UC_ToggleAvail
+    Donor --- UC_ViewProfile
+
+    %% Requester
+    Requester --- UC_SubmitReq
+    Requester --- UC_TrackReq
+    Requester --- UC_ViewProfile
+
+    %% Employee
+    Employee --- UC_ViewDonors
+    Employee --- UC_RecordDonation
+    Employee --- UC_ViewAllReq
+    Employee --- UC_UpdateStatus
+    Employee --- UC_FulfillReq
+    Employee --- UC_AdjustStock
+    Employee --- UC_ViewStats
+
+    %% Admin Only
+    Admin --- UC_DeleteDonor
+    Admin --- UC_DeleteReq
+    Admin --- UC_SetStock
+
+    %% Include / Extend
+    UC_FulfillReq -.->|&lt;&lt;include&gt;&gt;| UC_AdjustStock
+    UC_RecordDonation -.->|&lt;&lt;include&gt;&gt;| UC_AdjustStock
+    UC_PublicDonate -.->|&lt;&lt;extend&gt;&gt;| UC_Reg
+    UC_SubmitReq -.->|&lt;&lt;extend&gt;&gt;| UC_TrackReq
+                    </pre>
+                </div>
+
+                <div class="info-grid">
+                    <div class="info-box">
+                        <h4>👥 Actor Catalog</h4>
+                        <ul>
+                            <li><strong>Guest / Public:</strong> Can browse blood availability, submit public donor applications, or request emergency blood.</li>
+                            <li><strong>Registered Donor:</strong> Has a JWT session, can update availability status and personal contact details.</li>
+                            <li><strong>Registered Requester:</strong> Can track personal request statuses (<code>/requests/mine</code>).</li>
+                            <li><strong>Employee / Staff:</strong> Manages daily intake donations, approves/rejects requests, fulfills verified orders.</li>
+                            <li><strong>Administrator:</strong> Superuser with destructive capabilities (delete donor, delete request, override stock).</li>
+                        </ul>
+                    </div>
+                    <div class="info-box">
+                        <h4>🔗 UML Relationships</h4>
+                        <ul>
+                            <li><strong>Generalization:</strong> <code>Admin</code> inherits all use cases of <code>Employee</code>.</li>
+                            <li><strong>&lt;&lt;include&gt;&gt;:</strong> Fulfilling a blood request or recording a donation <em>always</em> includes stock adjustment.</li>
+                            <li><strong>&lt;&lt;extend&gt;&gt;:</strong> Registering as a donor optionally extends to creating a user login account with password.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 3: SCHEMA & DATA DICTIONARY ================= -->
+        <section id="dictionary" class="tab-content">
+            <div class="card">
+                <h2 class="card-title">Comprehensive Data Dictionary</h2>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 4px;">
+                    Field-level specifications, keys, and validation rules from <code>schema.sql</code>.
+                </p>
+
+                <h3 style="margin-top: 1.5rem; color: var(--secondary);">1. Table: <code>users</code></h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr><th>Field</th><th>Type</th><th>Key</th><th>Null</th><th>Default</th><th>Description</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>id</code></td><td>INT</td><td><span class="badge badge-pk">PK</span></td><td>No</td><td>Auto Increment</td><td>Unique user account ID</td></tr>
+                            <tr><td><code>name</code></td><td>VARCHAR(150)</td><td>—</td><td>No</td><td>—</td><td>Full display name</td></tr>
+                            <tr><td><code>email</code></td><td>VARCHAR(191)</td><td><span class="badge badge-uk">UK</span></td><td>No</td><td>—</td><td>Unique login credential</td></tr>
+                            <tr><td><code>password_hash</code></td><td>VARCHAR(255)</td><td>—</td><td>No</td><td>—</td><td>Bcrypt encrypted password hash</td></tr>
+                            <tr><td><code>role</code></td><td>ENUM</td><td>—</td><td>No</td><td>—</td><td><code>admin</code>, <code>employee</code>, <code>donor</code>, <code>requester</code></td></tr>
+                            <tr><td><code>is_active</code></td><td>TINYINT(1)</td><td>—</td><td>No</td><td>1</td><td>1 = Active, 0 = Deactivated</td></tr>
+                            <tr><td><code>created_at</code></td><td>TIMESTAMP</td><td>—</td><td>No</td><td>CURRENT_TIMESTAMP</td><td>Registration timestamp</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 style="margin-top: 2rem; color: var(--secondary);">2. Table: <code>donors</code></h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr><th>Field</th><th>Type</th><th>Key</th><th>Null</th><th>Default</th><th>Description</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>id</code></td><td>INT</td><td><span class="badge badge-pk">PK</span></td><td>No</td><td>Auto Increment</td><td>Unique donor record ID</td></tr>
+                            <tr><td><code>user_id</code></td><td>INT</td><td><span class="badge badge-fk">FK</span> <span class="badge badge-uk">UK</span></td><td>Yes</td><td>NULL</td><td>References <code>users(id)</code> (ON DELETE SET NULL)</td></tr>
+                            <tr><td><code>name</code></td><td>VARCHAR(150)</td><td>—</td><td>No</td><td>—</td><td>Donor's full legal name</td></tr>
+                            <tr><td><code>age</code></td><td>TINYINT UNSIGNED</td><td>—</td><td>No</td><td>—</td><td>Donor age (validated >= 18)</td></tr>
+                            <tr><td><code>gender</code></td><td>ENUM</td><td>—</td><td>No</td><td>—</td><td><code>Male</code>, <code>Female</code>, <code>Other</code></td></tr>
+                            <tr><td><code>blood_group</code></td><td>ENUM</td><td>—</td><td>No</td><td>—</td><td><code>A+</code>, <code>A-</code>, <code>B+</code>, <code>B-</code>, <code>AB+</code>, <code>AB-</code>, <code>O+</code>, <code>O-</code></td></tr>
+                            <tr><td><code>phone</code></td><td>VARCHAR(20)</td><td>—</td><td>No</td><td>—</td><td>Contact telephone number</td></tr>
+                            <tr><td><code>email</code></td><td>VARCHAR(191)</td><td>—</td><td>No</td><td>—</td><td>Contact email address</td></tr>
+                            <tr><td><code>is_available</code></td><td>TINYINT(1)</td><td>—</td><td>No</td><td>1</td><td>Readiness to donate (1 = Available)</td></tr>
+                            <tr><td><code>last_donation_date</code></td><td>DATE</td><td>—</td><td>Yes</td><td>NULL</td><td>Timestamp of most recent donation</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 style="margin-top: 2rem; color: var(--secondary);">3. Table: <code>blood_stock</code></h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr><th>Field</th><th>Type</th><th>Key</th><th>Null</th><th>Default</th><th>Description</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>id</code></td><td>INT</td><td><span class="badge badge-pk">PK</span></td><td>No</td><td>Auto Increment</td><td>Stock item ID</td></tr>
+                            <tr><td><code>blood_group</code></td><td>ENUM</td><td><span class="badge badge-uk">UK</span></td><td>No</td><td>—</td><td>One unique row per blood type (8 total)</td></tr>
+                            <tr><td><code>units</code></td><td>INT</td><td>—</td><td>No</td><td>0</td><td>Quantity in stock; <code>CHECK (units >= 0)</code></td></tr>
+                            <tr><td><code>updated_at</code></td><td>TIMESTAMP</td><td>—</td><td>No</td><td>CURRENT_TIMESTAMP</td><td>Last inventory update timestamp</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 style="margin-top: 2rem; color: var(--secondary);">4. Table: <code>blood_requests</code></h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr><th>Field</th><th>Type</th><th>Key</th><th>Null</th><th>Default</th><th>Description</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>id</code></td><td>INT</td><td><span class="badge badge-pk">PK</span></td><td>No</td><td>Auto Increment</td><td>Unique request ID</td></tr>
+                            <tr><td><code>requester_id</code></td><td>INT</td><td><span class="badge badge-fk">FK</span></td><td>Yes</td><td>NULL</td><td>References <code>users(id)</code> (ON DELETE SET NULL)</td></tr>
+                            <tr><td><code>requester_name</code></td><td>VARCHAR(150)</td><td>—</td><td>No</td><td>—</td><td>Contact / Patient name</td></tr>
+                            <tr><td><code>blood_group</code></td><td>ENUM</td><td>—</td><td>No</td><td>—</td><td>Requested blood group</td></tr>
+                            <tr><td><code>units</code></td><td>INT</td><td>—</td><td>No</td><td>—</td><td>Requested units (<code>CHECK units > 0</code>)</td></tr>
+                            <tr><td><code>hospital</code></td><td>VARCHAR(200)</td><td>—</td><td>No</td><td>—</td><td>Hospital or Clinic delivery location</td></tr>
+                            <tr><td><code>status</code></td><td>ENUM</td><td>—</td><td>No</td><td>pending</td><td><code>pending</code>, <code>approved</code>, <code>rejected</code>, <code>fulfilled</code></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 style="margin-top: 2rem; color: var(--secondary);">5. Table: <code>donations</code></h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr><th>Field</th><th>Type</th><th>Key</th><th>Null</th><th>Default</th><th>Description</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>id</code></td><td>INT</td><td><span class="badge badge-pk">PK</span></td><td>No</td><td>Auto Increment</td><td>Donation event ID</td></tr>
+                            <tr><td><code>donor_id</code></td><td>INT</td><td><span class="badge badge-fk">FK</span></td><td>No</td><td>—</td><td>References <code>donors(id)</code> (ON DELETE RESTRICT)</td></tr>
+                            <tr><td><code>units</code></td><td>INT</td><td>—</td><td>No</td><td>—</td><td>Units donated (<code>CHECK units > 0</code>)</td></tr>
+                            <tr><td><code>donation_date</code></td><td>DATE</td><td>—</td><td>No</td><td>—</td><td>Date blood was drawn</td></tr>
+                            <tr><td><code>status</code></td><td>ENUM</td><td>—</td><td>No</td><td>recorded</td><td><code>recorded</code>, <code>cancelled</code></td></tr>
+                            <tr><td><code>recorded_by</code></td><td>INT</td><td><span class="badge badge-fk">FK</span></td><td>Yes</td><td>NULL</td><td>Staff/Admin user ID who recorded transaction</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // Initialize Mermaid
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            themeVariables: {
+                fontFamily: 'Inter, sans-serif',
+                primaryColor: '#fee2e2',
+                primaryTextColor: '#991b1b',
+                primaryBorderColor: '#e63946',
+                lineColor: '#475569',
+                secondaryColor: '#eff6ff',
+                tertiaryColor: '#f8fafc'
+            }
+        });
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function resetZoom(containerId) {
+            const el = document.getElementById(containerId);
+            el.scrollLeft = 0;
+            el.scrollTop = 0;
+        }
+
+        function copyMermaid(type) {
+            let text = "";
+            if (type === 'erCode') {
+                text = document.getElementById('erDiagramPre').textContent;
+            } else {
+                text = document.getElementById('ucDiagramPre').textContent;
+            }
+            navigator.clipboard.writeText(text.trim()).then(() => {
+                alert("Mermaid code copied to clipboard!");
+            });
+        }
+    </script>
+</body>
+</html>

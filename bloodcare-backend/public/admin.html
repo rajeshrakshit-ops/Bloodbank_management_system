@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Dashboard - BloodCare</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">🩸 BloodCare</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="#donationSection">Donations</a>
+            <a href="#stockSection">Blood Stock</a>
+            <a href="#requestSection">Requests</a>
+            <a href="index.html" class="login-btn" id="navAuthBtn">Logout</a>
+        </div>
+    </nav>
+
+    <main class="admin-section">
+        <div class="admin-header">
+            <h1>Staff Dashboard</h1>
+            <p>Manage donors, donations, blood stock and blood requests.</p>
+        </div>
+
+        <div class="admin-stats">
+            <div class="stat-card"><h3>Total Donors</h3><p id="totalDonors">0</p></div>
+            <div class="stat-card"><h3>Blood Units</h3><p id="totalUnits">0</p></div>
+            <div class="stat-card"><h3>Blood Requests</h3><p id="totalRequests">0</p></div>
+            <div class="stat-card"><h3>Pending Requests</h3><p id="pendingRequests">0</p></div>
+        </div>
+
+        <section class="admin-box" id="stockSection">
+            <div class="admin-box-header">
+                <div>
+                    <h2>Blood Stock</h2>
+                    <p class="section-text">Current units available for each blood group.</p>
+                </div>
+                <button type="button" class="secondary-btn" id="refreshDashboardBtn">Refresh</button>
+            </div>
+            <div class="stock-grid" id="adminStockGrid"></div>
+        </section>
+
+        <section class="admin-box" id="donationSection">
+            <h2>Record Donation</h2>
+            <p class="section-text">Record a completed donation. Stock will increase automatically.</p>
+            <form id="donationForm" class="admin-form">
+                <div class="form-row">
+                    <div>
+                        <label for="donorSelect">Donor</label>
+                        <select id="donorSelect" required>
+                            <option value="">Select Donor</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="donationUnits">Units</label>
+                        <input id="donationUnits" type="number" min="1" step="1" required placeholder="e.g. 1">
+                    </div>
+                    <div>
+                        <label for="donationDate">Donation Date</label>
+                        <input id="donationDate" type="date">
+                    </div>
+                </div>
+                <button type="submit">Record Donation</button>
+            </form>
+        </section>
+
+        <section class="admin-box" id="requestSection">
+            <div class="admin-box-header">
+                <div>
+                    <h2>Blood Requests</h2>
+                    <p class="section-text">Approve, reject or fulfill requester submissions.</p>
+                </div>
+                <button type="button" class="secondary-btn" id="refreshRequestsBtn">Refresh</button>
+            </div>
+            <div class="table-wrap">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th><th>Requester</th><th>Blood Group</th><th>Units</th>
+                            <th>Hospital</th><th>Status</th><th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="requestsTableBody">
+                        <tr><td colspan="7" class="empty-row">Loading requests...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="admin-box" id="donorSection">
+            <div class="admin-box-header">
+                <div>
+                    <h2>Donors</h2>
+                    <p class="section-text">Registered donors available in the system.</p>
+                </div>
+                <button type="button" class="secondary-btn" id="refreshDonorsBtn">Refresh</button>
+            </div>
+            <div class="table-wrap">
+                <table class="admin-table">
+                    <thead>
+                        <tr><th>ID</th><th>Name</th><th>Blood Group</th><th>Phone</th><th>Available</th><th>Last Donation</th></tr>
+                    </thead>
+                    <tbody id="donorsTableBody">
+                        <tr><td colspan="6" class="empty-row">Loading donors...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

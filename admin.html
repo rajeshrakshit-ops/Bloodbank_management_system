@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard - BloodCare</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+
+        <div class="logo">
+            🩸 BloodCare
+        </div>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="#">Donors</a>
+            <a href="#">Blood Stock</a>
+            <a href="#">Requests</a>
+            <a href="index.html" class="login-btn">Logout</a>
+        </div>
+
+    </nav>
+
+    <!-- Admin Dashboard -->
+    <section class="admin-section">
+
+        <div class="admin-header">
+            <h1>Admin Dashboard</h1>
+
+            <p>
+                Manage donors, blood stock and blood requests.
+            </p>
+        </div>
+
+        <!-- Statistics -->
+        <div class="admin-stats">
+
+            <div class="stat-card">
+                <h3>Total Donors</h3>
+                <p id="totalDonors">0</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Blood Units</h3>
+                <p id="totalUnits">79</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Blood Requests</h3>
+                <p id="totalRequests">0</p>
+            </div>
+
+        </div>
+
+        <!-- Blood Stock -->
+        <div class="admin-box">
+
+            <h2>Blood Stock</h2>
+
+            <div class="stock-grid">
+
+                <div class="stock-card">
+                    <h3>A+</h3>
+                    <p>12 Units</p>
+                </div>
+
+                <div class="stock-card">
+                    <h3>A-</h3>
+                    <p>08 Units</p>
+                </div>
+
+                <div class="stock-card">
+                    <h3>B+</h3>
+                    <p>15 Units</p>
+                </div>
+
+                <div class="stock-card">
+                    <h3>B-</h3>
+                    <p>06 Units</p>
+                </div>
+
+                <div class="stock-card">
+                    <h3>O+</h3>
+                    <p>20 Units</p>
+                </div>
+
+                <div class="stock-card">
+                    <h3>O-</h3>
+                    <p>05 Units</p>
+                </div>
+
+                <div class="stock-card">
+                    <h3>AB+</h3>
+                    <p>09 Units</p>
+                </div>
+
+                <div class="stock-card">
+                    <h3>AB-</h3>
+                    <p>04 Units</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</body>
+
+</html>

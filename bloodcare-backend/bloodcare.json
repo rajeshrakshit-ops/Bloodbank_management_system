@@ -1,0 +1,82 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Administrator",
+      "email": "admin@bloodcare.com",
+      "password": "$2a$10$XK6hBQ2sqJM9j5bxP3sfuuM4.ohuetNS919zMyN0oRk/GhQPrcoaa",
+      "role": "admin",
+      "created_at": "2026-09-02T10:16:16.670Z"
+    }
+  ],
+  "donors": [
+    {
+      "id": 1,
+      "user_id": null,
+      "name": "Rajesh Rakshit",
+      "age": 69,
+      "gender": "Female",
+      "blood_group": "O-",
+      "phone": "696969696969",
+      "email": "rajeshrakshit304@gmail.com",
+      "address": "Kalna Gate Khan Pukur",
+      "last_donation_date": null,
+      "is_available": 1,
+      "created_at": "2026-09-02T10:16:52.270Z"
+    },
+    {
+      "id": 2,
+      "user_id": null,
+      "name": "Rajesh Rakshit",
+      "age": 69,
+      "gender": "Female",
+      "blood_group": "O-",
+      "phone": "456734133",
+      "email": "rajeshrakshit304@gmail.com",
+      "address": "Kalna Gate Khan Pukur",
+      "last_donation_date": null,
+      "is_available": 1,
+      "created_at": "2026-09-02T10:17:33.636Z"
+    }
+  ],
+  "blood_requests": [],
+  "blood_stock": [
+    {
+      "blood_group": "A+",
+      "units": 12
+    },
+    {
+      "blood_group": "A-",
+      "units": 8
+    },
+    {
+      "blood_group": "B+",
+      "units": 15
+    },
+    {
+      "blood_group": "B-",
+      "units": 6
+    },
+    {
+      "blood_group": "O+",
+      "units": 20
+    },
+    {
+      "blood_group": "O-",
+      "units": 5
+    },
+    {
+      "blood_group": "AB+",
+      "units": 9
+    },
+    {
+      "blood_group": "AB-",
+      "units": 4
+    }
+  ],
+  "_seq": {
+    "users": 1,
+    "donors": 2,
+    "blood_requests": 0
+  }
+}
